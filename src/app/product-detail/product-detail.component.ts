@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
 import { ProductService } from '../product.service';
 
 @Component({
@@ -10,6 +11,7 @@ import { ProductService } from '../product.service';
 })
 export class ProductDetailComponent implements OnInit, OnDestroy {
   new!: boolean;
+  subs = of().subscribe();
 
   constructor(
     private route: ActivatedRoute,
@@ -21,18 +23,23 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
   createProduct() {
     const { name, price } = this.productForm.value;
-    name &&
+    const sub2 =
+      name &&
       price &&
       this.productService.addProduct({ name, price: Number(price) });
+    this.subs.add(sub2);
   }
 
   updateProduct() {
     const { id, name, price } = this.productForm.value;
 
-    id &&
+    const sub3 =
+      id &&
       name &&
       price &&
       this.productService.updateProduct({ id, name, price: Number(price) });
+
+    this.subs.add(sub3);
   }
 
   ngOnInit(): void {
@@ -42,7 +49,7 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
       price: [0, Validators.required],
     });
 
-    this.route.paramMap.subscribe((param) => {
+    const sub1 = this.route.paramMap.subscribe((param) => {
       const id = param.get('id');
 
       if (id && id !== 'new') {
@@ -61,7 +68,11 @@ export class ProductDetailComponent implements OnInit, OnDestroy {
 
       return (this.new = true);
     });
+
+    this.subs.add(sub1);
   }
 
-  ngOnDestroy(): void {}
+  ngOnDestroy(): void {
+    this.subs.unsubscribe();
+  }
 }

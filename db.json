@@ -1,19 +1,24 @@
 {
   "products": [
     {
-      "name": "Test 2",
-      "price": 1010,
-      "id": 1
+      "id": 1,
+      "name": "Face cap",
+      "price": 1010
     },
     {
       "id": 2,
-      "name": "Test 30",
+      "name": "Nylon",
       "price": 350
     },
     {
-      "name": "Hand  Bag",
-      "price": 400,
+      "name": "T-Shirt",
+      "price": 1000,
       "id": 3
+    },
+    {
+      "name": "Radio",
+      "price": 15000,
+      "id": 4
     }
   ]
 }
