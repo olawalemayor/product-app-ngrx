@@ -3,7 +3,7 @@
     {
       "id": 1,
       "name": "Face cap",
-      "price": 1010
+      "price": 1015
     },
     {
       "id": 2,
@@ -11,13 +11,13 @@
       "price": 350
     },
     {
-      "name": "T-Shirt",
-      "price": 1000,
+      "name": "Bicycle",
+      "price": 50000000,
       "id": 3
     },
     {
-      "name": "Radio",
-      "price": 15000,
+      "name": "Gas can",
+      "price": 400000,
       "id": 4
     }
   ]

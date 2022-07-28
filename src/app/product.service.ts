@@ -12,40 +12,25 @@ export class ProductService {
 
   constructor(private _http: HttpClient, private router: Router) {}
 
-  products$ = new Subject<IProduct[]>();
-  product$ = new Subject<IProduct>();
-
   //Get all products
   getProducts() {
-    this._http
-      .get<IProduct[]>(this.apiUrl)
-      .subscribe((products) => this.products$.next(products));
+    return this._http.get<IProduct[]>(this.apiUrl);
   }
 
   //Get single product
   getProduct(id: string) {
-    this._http
-      .get<IProduct>(`${this.apiUrl}/${id}`)
-      .subscribe((product) => this.product$.next(product));
+    return this._http.get<IProduct>(`${this.apiUrl}/${id}`);
   }
 
   addProduct(product: IProduct) {
-    this._http.post(this.apiUrl, product).subscribe(() => {
-      this.getProducts();
-      this.router.navigateByUrl('');
-    });
+    return this._http.post<IProduct>(this.apiUrl, product);
   }
 
   updateProduct(product: IProduct) {
-    this._http.put(`${this.apiUrl}/${product.id}`, product).subscribe(() => {
-      this.getProducts();
-      this.router.navigateByUrl('');
-    });
+    return this._http.put<IProduct>(`${this.apiUrl}/${product.id}`, product);
   }
 
   deleteProduct(product: IProduct) {
-    this._http
-      .delete(`${this.apiUrl}/${product.id}`)
-      .subscribe(() => this.getProducts());
+    return this._http.delete<IProduct>(`${this.apiUrl}/${product.id}`);
   }
 }

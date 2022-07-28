@@ -9,6 +9,10 @@ import { EffectsModule } from '@ngrx/effects';
 import { ProductsListComponent } from './products-list/products-list.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { appReducer } from './state/app.reducer';
+import { AppEffects } from './state/app.effects';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [AppComponent, ProductsListComponent, ProductDetailComponent],
@@ -17,8 +21,10 @@ import { ReactiveFormsModule } from '@angular/forms';
     HttpClientModule,
     AppRoutingModule,
     StoreModule.forRoot({}, {}),
-    EffectsModule.forRoot([]),
+    StoreModule.forFeature('app', appReducer),
+    EffectsModule.forRoot([AppEffects]),
     ReactiveFormsModule,
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
   ],
   providers: [],
   bootstrap: [AppComponent],
