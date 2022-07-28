@@ -1,1 +1,45 @@
-<p>product-detail works!</p>
+<div class="my-6">
+  <form [formGroup]="productForm">
+    <div class="flex flex-col mb-3">
+      <label for="name">Name : </label>
+      <input
+        type="text"
+        class="outline-none border rounded p-2"
+        formControlName="name"
+      />
+    </div>
+
+    <div class="flex flex-col mb-3">
+      <label for="price">Price : </label>
+      <input
+        type="number"
+        class="outline-none border rounded p-2"
+        formControlName="price"
+      />
+    </div>
+
+    <!-- Actions -->
+    <div class="flex w-full justify-between my-6">
+      <button
+        *ngIf="!new"
+        class="px-6 py-3 bg-blue-700 hover:bg-blue-600 text-white"
+        (click)="updateProduct()"
+      >
+        Update
+      </button>
+      <button
+        *ngIf="new"
+        class="px-6 py-3 bg-blue-700 hover:bg-blue-600 text-white"
+        (click)="createProduct()"
+      >
+        Create
+      </button>
+      <a
+        routerLink="../"
+        class="px-6 py-3 bg-red-700 hover:bg-red-600 text-white block"
+      >
+        Cancel
+      </a>
+    </div>
+  </form>
+</div>

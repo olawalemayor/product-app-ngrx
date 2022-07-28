@@ -1,4 +1,13 @@
 <div>
+  <div class="my-5">
+    <a
+      [routerLink]="['/new']"
+      class="text-white bg-green-700 px-5 py-2 rounded-sm cursor-pointer hover:bg-green-600"
+    >
+      Add Product
+    </a>
+  </div>
+
   <div class="grid md:grid-cols-2 lg:grid-cols-3">
     <div *ngFor="let product of products$ | async" class="shadow-md m-2 p-2">
       <div class="flex flex-col md:flex-row justify-between">

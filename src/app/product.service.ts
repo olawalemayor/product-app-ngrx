@@ -1,6 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 import IProduct from './product';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -8,32 +10,42 @@ import IProduct from './product';
 export class ProductService {
   apiUrl = 'http://localhost:3000/products';
 
-  constructor(private _http: HttpClient) {}
+  constructor(private _http: HttpClient, private router: Router) {}
+
+  products$ = new Subject<IProduct[]>();
+  product$ = new Subject<IProduct>();
 
   //Get all products
   getProducts() {
-    return this._http.get<IProduct[]>(this.apiUrl);
+    this._http
+      .get<IProduct[]>(this.apiUrl)
+      .subscribe((products) => this.products$.next(products));
   }
 
   //Get single product
-  getProduct(product: IProduct) {
-    const productId = product.id;
-
-    return this._http.get(`${this.apiUrl}/${productId}`);
+  getProduct(id: string) {
+    this._http
+      .get<IProduct>(`${this.apiUrl}/${id}`)
+      .subscribe((product) => this.product$.next(product));
   }
 
   addProduct(product: IProduct) {
-    const productLength = this.getProducts().pipe.length;
-    product.id = (productLength + 1).toString();
-
-    return this._http.post(this.apiUrl, product);
+    this._http.post(this.apiUrl, product).subscribe(() => {
+      this.getProducts();
+      this.router.navigateByUrl('');
+    });
   }
 
   updateProduct(product: IProduct) {
-    return this._http.put(`${this.apiUrl}/${product.id}`, product);
+    this._http.put(`${this.apiUrl}/${product.id}`, product).subscribe(() => {
+      this.getProducts();
+      this.router.navigateByUrl('');
+    });
   }
 
   deleteProduct(product: IProduct) {
-    this._http.delete(`${this.apiUrl}/${product.id}`);
+    this._http
+      .delete(`${this.apiUrl}/${product.id}`)
+      .subscribe(() => this.getProducts());
   }
 }

@@ -8,6 +8,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { ProductsListComponent } from './products-list/products-list.component';
 import { ProductDetailComponent } from './product-detail/product-detail.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AppComponent, ProductsListComponent, ProductDetailComponent],
@@ -17,6 +18,7 @@ import { ProductDetailComponent } from './product-detail/product-detail.componen
     AppRoutingModule,
     StoreModule.forRoot({}, {}),
     EffectsModule.forRoot([]),
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
