@@ -13,6 +13,7 @@ export class AppEffects {
     private router: Router
   ) {}
 
+  //get single product
   getProduct$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(AppActions.getProduct),
@@ -27,6 +28,7 @@ export class AppEffects {
     );
   });
 
+  //get all products
   getProducts$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(AppActions.getProducts),
@@ -41,6 +43,7 @@ export class AppEffects {
     );
   });
 
+  //add product
   addProduct$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(AppActions.AddProduct),
@@ -55,6 +58,7 @@ export class AppEffects {
     );
   });
 
+  //If adding was successfull go back home
   addSuccess$ = createEffect(
     () => {
       return this.actions$.pipe(
@@ -65,6 +69,7 @@ export class AppEffects {
     { dispatch: false }
   );
 
+  //Update product
   updateProduct$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(AppActions.updateProduct),
@@ -79,6 +84,7 @@ export class AppEffects {
     );
   });
 
+  //If update was sucessfult go back home
   updateSuccess$ = createEffect(
     () => {
       return this.actions$.pipe(
@@ -89,6 +95,7 @@ export class AppEffects {
     { dispatch: false }
   );
 
+  //delete product
   deleteProduct$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(AppActions.deleteProduct),
